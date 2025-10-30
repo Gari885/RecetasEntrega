@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="close()">Recetario</a>
+
+    <!-- Botón toggler: lo controlamos con Angular -->
+    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent"
+            [attr.aria-expanded]="isOpen" aria-label="Toggle navigation"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" [class.show]="isOpen" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" (click)="close()">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" (click)="close()">Acerca</a>
+        </li>
+        <!-- añade más items si los necesitas -->
+      </ul>
+
+      <form class="d-flex" role="search" (submit)="$event.preventDefault()">
+        <input class="form-control me-2" type="search" placeholder="Buscar receta" aria-label="Buscar">
+        <button class="btn btn-outline-primary" type="button">Buscar</button>
+      </form>
+    </div>
+  </div>
+</nav>

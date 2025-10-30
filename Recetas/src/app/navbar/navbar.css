@@ -1,0 +1,15 @@
+/* ajustes menores para que el toggler-icon funcione sin JS de BS */
+.navbar-toggler {
+  border: none;
+}
+
+/* Opcional: personalización de la marca */
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* Pequeñas mejoras visuales cuando el collapse se muestra */
+.collapse.show {
+  transition: height 200ms ease;
+}
