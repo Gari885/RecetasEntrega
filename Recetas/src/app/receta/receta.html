@@ -1,0 +1,14 @@
+<div class="card h-100" style="width: 18rem;">
+  <img [src]="receta.imagen" class="card-img-top" alt="{{ receta.nombre }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ receta.nombre }}</h5>
+    <div class="card-text">
+      <strong>Ingredientes:</strong>
+      <ul>
+        <li *ngFor="let ing of receta.ingredientes">{{ ing }}</li>
+      </ul>
+    </div>
+    <button (click)="onEliminar()" class="btn btn-danger btn-sm">Borrar</button>
+  </div>
+</div>
+

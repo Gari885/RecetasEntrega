@@ -1,21 +1,18 @@
-import { Component } from '@angular/core';
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  // false = cerrado, true = abierto (para la vista móvil)
-  isOpen = false;
+  termino: string = '';
 
-  toggle() {
-    this.isOpen = !this.isOpen;
-  }
+  @Output() buscar = new EventEmitter<string>();
 
-  // cerrar el menú (útil cuando el usuario hace click en un enlace)
-  close() {
-    this.isOpen = false;
+  onBuscar(event: Event) {
+    event.preventDefault(); // Evita el refresh del formulario
+    this.buscar.emit(this.termino.trim());
   }
 }
