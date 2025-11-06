@@ -1,18 +1,16 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
+
+import { Component } from '@angular/core';
+// 1. Importamos los módulos de Routing
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
-  imports: [FormsModule],
+  standalone: true,
+  // 2. Los añadimos aquí
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  styleUrl: './navbar.css'
 })
-export class Navbar {
-  termino: string = '';
-
-  @Output() buscar = new EventEmitter<string>();
-
-  onBuscar(event: Event) {
-    event.preventDefault(); // Evita el refresh del formulario
-    this.buscar.emit(this.termino.trim());
-  }
+export class Navbar { // (o NavbarComponent si le cambiaste el nombre)
+  // ...
 }

@@ -1,41 +1,35 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Recetario</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container">
+    
+    <a class="navbar-brand" routerLink="/">
+      Mis Recetas
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" 
+             routerLink="/" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: true}">
+             Ver Recetas
+          </a>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link" href="#">Recetas</a>
+          <a class="nav-link" 
+             routerLink="/nueva" 
+             routerLinkActive="active">
+             Añadir Receta
+          </a>
         </li>
+        
       </ul>
-
-      <form class="d-flex" role="search" (submit)="onBuscar($event)">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Buscar receta..."
-          [(ngModel)]="termino"
-          name="termino"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">
-          Buscar
-        </button>
-      </form>
     </div>
   </div>
 </nav>

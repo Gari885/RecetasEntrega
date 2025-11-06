@@ -1,14 +1,21 @@
-<div class="card h-100" style="width: 18rem;">
-  <img [src]="receta.imagen" class="card-img-top" alt="{{ receta.nombre }}">
+<div class="card h-100 shadow-sm">
+  
+  <div class="card-header">
+    <h5 class="card-title mb-0">{{ receta().titulo }}</h5>
+  </div>
+  
+  <img [src]="receta().imagen" class="card-img-top" [alt]="receta().titulo">
+  
   <div class="card-body">
-    <h5 class="card-title">{{ receta.nombre }}</h5>
-    <div class="card-text">
-      <strong>Ingredientes:</strong>
-      <ul>
-        <li *ngFor="let ing of receta.ingredientes">{{ ing }}</li>
-      </ul>
-    </div>
-    <button (click)="onEliminar()" class="btn btn-danger btn-sm">Borrar</button>
+    <h6 class="card-subtitle mb-2 text-muted">Ingredientes:</h6>
+    <ul class="list-group list-group-flush">
+      
+      @for (ingrediente of receta().ingredientes; track $index) {
+        <li class="list-group-item py-1 px-0">
+          {{ ingrediente }}
+        </li>
+      }
+
+    </ul>
   </div>
 </div>
-
