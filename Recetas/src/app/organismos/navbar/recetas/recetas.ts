@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecetaComponent } from '../receta/receta.component';
+import { RecetaComponent } from '../moleculas/receta/receta.component';
 import { FormularioRecetaComponent } from '../formulario-receta/formulario-receta.component';
 @Component({
   selector: 'app-recetas',
