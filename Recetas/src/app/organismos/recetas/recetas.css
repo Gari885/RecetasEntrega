@@ -19,7 +19,7 @@
   flex-grow: 1; /* Ocupa el espacio sobrante */
 }
 
-/* Y el CSS que ya teníamos para la imagen */
+/*CSS para la imagen */
 .card-img-top {
   width: 100%;
   height: 200px;
