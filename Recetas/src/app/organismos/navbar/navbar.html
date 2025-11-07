@@ -10,8 +10,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" 
              routerLink="/" 
@@ -20,17 +19,17 @@
              Ver Recetas
           </a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" 
-             routerLink="/nueva" 
-             routerLinkActive="active">
-             Añadir Receta
-          </a>
-        </li>
-        
       </ul>
+      
+      <form class="d-flex" (submit)="$event.preventDefault()">
+        <input 
+          class="form-control me-2" 
+          type="search" 
+          placeholder="Buscar receta..."
+          (input)="onSearch($event)"
+        >
+      </form>
+      
     </div>
   </div>
 </nav>
-

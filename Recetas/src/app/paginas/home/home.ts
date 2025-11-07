@@ -2,17 +2,21 @@
 
 import { Component } from '@angular/core';
 
-// 1. Importa tu organismo
-import { Recetas } from '../../organismos/recetas/recetas'; // (O 'RecetasComponent' si lo llamaste así)
+// 1. Importa AMBOS organismos
+import { Recetas } from '../../organismos/recetas/recetas'; // (o RecetasComponent)
+import { FormularioRecetas } from '../../organismos/formulario-recetas/formulario-recetas'; // (o FormularioRecetasComponent)
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  // 2. Añádelo a los imports
-  imports: [Recetas],
+  // 2. Añade AMBOS a los imports
+  imports: [
+    Recetas,
+    FormularioRecetas
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home { // (o 'HomeComponent')
+export class Home { // (o HomeComponent)
   // ...
 }
