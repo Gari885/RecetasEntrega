@@ -14,17 +14,17 @@ export class RecetaService { // (o 'Receta')
   private recetasIniciales: RecetaModelo[] = [
     {
       titulo: 'Tortilla de Patatas',
-      imagen: 'https://via.placeholder.com/300x200.png?text=Tortilla',
+      imagen: 'https://imgs.search.brave.com/xE0Il87ltADaZxeuZ3KBPQCxTwfgi-73dtd2U83ZPvU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdDIu/ZGVwb3NpdHBob3Rv/cy5jb20vMjA3MjQ5/NS83Mjc0L2kvNDUw/L2RlcG9zaXRwaG90/b3NfNzI3NDIxNzMt/c3RvY2stcGhvdG8t/c3BhbmlzaC1vbWVs/ZXR0ZS13aXRoLXBv/dGF0by1hbmQuanBn',
       ingredientes: ['Patatas', 'Huevos', 'Cebolla', 'Aceite', 'Sal']
     },
     {
       titulo: 'Paella Valenciana',
-      imagen: 'https://via.placeholder.com/300x200.png?text=Paella',
+      imagen: 'https://imgs.search.brave.com/SeUMQCmEIacgVhjWKAMZ_Ity_72PZTOUfQiwGx62rTs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9wYWVs/bGEtdmFsZW5jaWFu/YS1jb24tZWwtcG9s/bG8teS1lbC1jb25l/am8tOTAyODYxMTEu/anBn',
       ingredientes: ['Arroz', 'Pollo', 'Conejo', 'Judías Verdes', 'Garrofó']
     },
     {
       titulo: 'Gazpacho Andaluz',
-      imagen: 'https://via.placeholder.com/300x200.png?text=Gazpacho',
+      imagen: 'https://imgs.search.brave.com/xuRACp9mK0529rJf0jGb0YvRqIakdezphoInXWBBOi8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWct/Z2xvYmFsLmNwY2Ru/LmNvbS9yZWNpcGVz/L2I1YzUxYTBkNWEx/NWVhZmYvMjQweDMy/MGNxODAvcGhvdG8u/anBn',
       ingredientes: ['Tomate', 'Pepino', 'Pimiento', 'Ajo', 'Aceite']
     }
   ];
@@ -69,6 +69,24 @@ export class RecetaService { // (o 'Receta')
       nuevaReceta
     ]);
   }
+
+  // En: src/app/servicios/receta.ts
+// ... (justo después del método addReceta)
+
+  // 5. Método PÚBLICO para BORRAR una receta
+  public deleteReceta(recetaABorrar: RecetaModelo) {
+    
+    // Actualizamos la lista COMPLETA
+    this.listaRecetas.update( (recetasActuales) => 
+      // Devolvemos un nuevo array sin la receta
+      recetasActuales.filter(receta => 
+        receta.titulo !== recetaABorrar.titulo 
+        // (Usamos el título como ID, asumiendo que es único)
+      )
+    );
+  }
+
+// ... (el resto del servicio)
 
   // El componente Recetas AHORA USA LA SEÑAL FILTRADA
 // CÓDIGO CORRECTO

@@ -1,58 +1,46 @@
-<div class="row justify-content-center">
-  <div class="col-12 col-md-8 col-lg-6">
-    <h2 class="mb-3">Añadir Nueva Receta</h2>
+<form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
+
+  <div class="mb-3">
+    <label for="titulo" class="form-label">Título</label>
+    <input type="text" class="form-control" id="titulo" formControlName="titulo">
     
-    <form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
-
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título</label>
-        <input type="text" class="form-control" id="titulo" formControlName="titulo">
-        
-        @if (recetaForm.get('titulo')?.invalid && recetaForm.get('titulo')?.touched) {
-          <div class="text-danger mt-1">
-            @if (recetaForm.get('titulo')?.hasError('required')) {
-              <small>El título es obligatorio.</small>
-            }
-            @if (recetaForm.get('titulo')?.hasError('minlength')) {
-              <small>El título debe tener al menos 3 caracteres.</small>
-            }
-          </div>
+    @if (recetaForm.get('titulo')?.invalid && recetaForm.get('titulo')?.touched) {
+      <div class="text-danger mt-1">
+        @if (recetaForm.get('titulo')?.hasError('required')) {
+          <small>El título es obligatorio.</small>
         }
       </div>
-
-      <div class="mb-3">
-        <label for="imagen" class="form-label">URL de la Imagen</label>
-        <input type="text" class="form-control" id="imagen" formControlName="imagen">
-        
-        @if (recetaForm.get('imagen')?.invalid && recetaForm.get('imagen')?.touched) {
-          <div class="text-danger mt-1">
-            @if (recetaForm.get('imagen')?.hasError('required')) {
-              <small>La URL de la imagen es obligatoria.</small>
-            }
-            @if (recetaForm.get('imagen')?.hasError('pattern')) {
-              <small>Debe ser una URL válida (ej: http://...)</small>
-            }
-          </div>
-        }
-      </div>
-
-      <div class="mb-3">
-        <label for="ingredientes" class="form-label">Ingredientes (uno por línea)</label>
-        <textarea class="form-control" id="ingredientes" formControlName="ingredientes" rows="5"></textarea>
-        
-        @if (recetaForm.get('ingredientes')?.invalid && recetaForm.get('ingredientes')?.touched) {
-          <div class="text-danger mt-1">
-            @if (recetaForm.get('ingredientes')?.hasError('required')) {
-              <small>Los ingredientes son obligatorios.</small>
-            }
-          </div>
-        }
-      </div>
-
-      <button type="submit" class="btn btn-primary" [disabled]="recetaForm.invalid">
-        Añadir Receta
-      </button>
-
-    </form>
+    }
   </div>
-</div>
+
+  <div class="mb-3">
+    <label for="imagen" class="form-label">URL de la Imagen</label>
+    <input type="text" class="form-control" id="imagen" formControlName="imagen">
+    
+    @if (recetaForm.get('imagen')?.invalid && recetaForm.get('imagen')?.touched) {
+      <div class="text-danger mt-1">
+        @if (recetaForm.get('imagen')?.hasError('required')) {
+          <small>La URL de la imagen es obligatoria.</small>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="ingredientes" class="form-label">Ingredientes (uno por línea)</label>
+    <textarea class="form-control" id="ingredientes" formControlName="ingredientes" rows="5"></textarea>
+    
+    @if (recetaForm.get('ingredientes')?.invalid && recetaForm.get('ingredientes')?.touched) {
+      <div class="text-danger mt-1">
+        @if (recetaForm.get('ingredientes')?.hasError('required')) {
+          <small>Los ingredientes son obligatorios.</small>
+        }
+      </div>
+    }
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100" [disabled]="recetaForm.invalid">
+    Añadir Receta
+  </button>
+
+</form>

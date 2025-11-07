@@ -9,13 +9,17 @@
   <div class="card-body">
     <h6 class="card-subtitle mb-2 text-muted">Ingredientes:</h6>
     <ul class="list-group list-group-flush">
-      
       @for (ingrediente of receta().ingredientes; track $index) {
         <li class="list-group-item py-1 px-0">
           {{ ingrediente }}
         </li>
       }
-
     </ul>
+  </div>
+
+  <div class="card-footer text-end">
+    <button class="btn btn-outline-danger btn-sm" (click)="onBorrarClick()">
+      Eliminar
+    </button>
   </div>
 </div>

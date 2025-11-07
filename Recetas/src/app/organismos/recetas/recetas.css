@@ -1,0 +1,27 @@
+/* En: src/app/moleculas/receta/receta.css */
+
+/* Esto hace que el componente <app-receta> sea flexible */
+:host {
+  display: flex;
+  height: 100%;
+}
+
+/* Esto hace que la tarjeta dentro del componente se estire */
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%; /* ¡Clave! */
+}
+
+/* Esto evita que la imagen aplaste el contenido */
+.card-body {
+  flex-grow: 1; /* Ocupa el espacio sobrante */
+}
+
+/* Y el CSS que ya teníamos para la imagen */
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}

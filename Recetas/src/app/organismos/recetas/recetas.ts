@@ -3,9 +3,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Receta } from '../../moleculas/receta/receta';
-
-// 1. Importa el servicio
 import { RecetaService } from '../../servicios/receta';
+import { RecetaModelo } from '../../modelos/receta.modelo'; // Importa el modelo
 
 @Component({
   selector: 'app-recetas',
@@ -16,14 +15,15 @@ import { RecetaService } from '../../servicios/receta';
 })
 export class Recetas { // (o RecetasComponent)
 
-  // 2. Declara la variable para guardar la lista
-  // (El $ es una convención para signals u observables)
   listaRecetas$;
 
-  // 3. Inyecta el servicio en el constructor
   constructor(private recetaService: RecetaService) {
-    // 4. Asigna la señal del servicio a tu variable local
     this.listaRecetas$ = this.recetaService.getRecetas();
   }
 
+  // PASO 3.B: Crea el método que escucha el evento
+  public handleDelete(recetaABorrar: RecetaModelo) {
+    // Simplemente, llama al servicio
+    this.recetaService.deleteReceta(recetaABorrar);
+  }
 }

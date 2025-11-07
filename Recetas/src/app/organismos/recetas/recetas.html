@@ -1,16 +1,19 @@
-
-<div class="row">
+<div class="row g-4"> 
   
   @for (receta of listaRecetas$(); track receta.titulo) {
     
-    <div class="col-12 col-md-6 col-lg-3 mb-4">
+    <div class="col-12 col-md-6 col-lg-6 mb-4">
       
-      <app-receta [receta]="receta"></app-receta>
+      <app-receta 
+        [receta]="receta" 
+        (onDelete)="handleDelete(receta)"
+        class="h-100">
+      </app-receta>
       
     </div>
     
   } @empty {
-    <p class="text-center">No hay recetas para mostrar.</p>
+    <p class="text-center">No hay recetas. ¡Añade una!</p>
   }
 
 </div>
