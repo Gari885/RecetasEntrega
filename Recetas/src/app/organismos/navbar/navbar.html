@@ -21,7 +21,16 @@
         </li>
       </ul>
       
-      <form class="d-flex" (submit)="$event.preventDefault()">
+      <form class="d-flex align-items-center gap-2" (submit)="$event.preventDefault()">
+        <select class="form-select" style="width: auto;" (change)="onFilterRating($event)">
+          <option value="0">Todas las valoraciones</option>
+          <option value="1">1+ Estrellas</option>
+          <option value="2">2+ Estrellas</option>
+          <option value="3">3+ Estrellas</option>
+          <option value="4">4+ Estrellas</option>
+          <option value="5">5 Estrellas</option>
+        </select>
+
         <input 
           class="form-control me-2" 
           type="search" 

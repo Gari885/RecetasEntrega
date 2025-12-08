@@ -49,4 +49,13 @@ export class Navbar {
      */
     this.recetaService.buscarReceta(terminoBusqueda);
   }
+
+  /**
+   * Maneja el cambio en el filtro de valoración.
+   */
+  onFilterRating(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const rating = parseInt(select.value, 10);
+    this.recetaService.setFiltroValoracion(rating);
+  }
 }

@@ -1,12 +1,41 @@
-<div class="card h-100 shadow-sm">
+<div class="card h-100 shadow-sm" (click)="onDetail.emit()" style="cursor: pointer;">
   
-  <div class="card-header">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="card-title mb-0">{{ receta().titulo }}</h5>
+    <div class="d-flex align-items-center gap-1">
+      <span class="fw-bold">{{ receta().personas || 4 }}</span>
+      <i class="bi bi-person"></i>
+    </div>
   </div>
   
-  <img [src]="receta().imagen" class="card-img-top" [alt]="receta().titulo">
+  <img 
+    [src]="receta().imagen" 
+    class="card-img-top" 
+    [alt]="receta().titulo"
+    (error)="handleImageError($event)"
+  >
   
   <div class="card-body">
+    <div class="d-flex align-items-start mb-3 gap-2">
+      <!-- Botón de votar (cuadrado con V) -->
+      <button 
+        class="btn btn-outline-dark btn-sm d-flex align-items-center justify-content-center p-0" 
+        style="width: 30px; height: 30px; border-radius: 4px;"
+        (click)="handleVoteButtonClick($event)"
+      >
+        V
+      </button>
+
+      <!-- Estrellas y Votos -->
+      <div class="d-flex flex-column">
+        <app-rating 
+          [rating]="media()" 
+          [readonly]="true"
+        ></app-rating>
+        <small class="text-muted mt-1">{{ receta().votos || 0 }} Votos</small>
+      </div>
+    </div>
+
     <h6 class="card-subtitle mb-2 text-muted">Ingredientes:</h6>
     <ul class="list-group list-group-flush">
       @for (ingrediente of receta().ingredientes; track $index) {
@@ -18,7 +47,7 @@
   </div>
 
   <div class="card-footer text-end">
-    <button class="btn btn-outline-danger btn-sm" (click)="onBorrarClick()">
+    <button class="btn btn-outline-danger btn-sm" (click)="onBorrarClick($event)">
       Eliminar
     </button>
   </div>

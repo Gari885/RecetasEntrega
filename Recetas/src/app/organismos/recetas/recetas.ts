@@ -1,70 +1,99 @@
 // En: src/app/organismos/recetas/recetas.ts
 
 import { Component } from '@angular/core';
-// Importamos CommonModule para poder usar directivas como @for en el HTML
 import { CommonModule } from '@angular/common';
-// Importamos la "Molécula" (la tarjeta de receta) que este organismo va a renderizar
 import { Receta } from '../../moleculas/receta/receta';
-// Importamos el "cerebro" (el servicio) para pedirle los datos
 import { RecetaService } from '../../servicios/receta';
-// Importamos el "contrato" (el modelo) para saber la forma de los datos
 import { RecetaModelo } from '../../modelos/receta.modelo'; 
+import { Rating } from '../../moleculas/rating/rating';
 
 /**
- * Componente "Organismo" (según Atomic Design).
- * Este es un componente "inteligente" (smart component).
- * Su responsabilidad principal es:
- * 1. Pedir la lista de recetas al RecetaService.
- * 2. Renderizar esa lista usando un bucle (@for) y la molécula <app-receta>.
- * 3. Escuchar los eventos de sus hijos (ej: el evento 'onDelete' de <app-receta>)
- * y reaccionar llamando al servicio.
+ * Organismo principal que muestra el listado de recetas.
+ * Gestiona la comunicación entre el servicio de datos y las tarjetas individuales.
+ * También maneja los modales de detalle y votación.
  */
 @Component({
-  selector: 'app-recetas', // La etiqueta HTML: <app-recetas>
+  selector: 'app-recetas',
   standalone: true,
-  // Imports necesarios para este componente:
-  // - CommonModule: Para usar @for en el HTML.
-  // - Receta: Para poder usar la etiqueta <app-receta> en el HTML.
-  imports: [CommonModule, Receta],
+  imports: [CommonModule, Receta, Rating],
   templateUrl: './recetas.html',
   styleUrl: './recetas.css'
 })
 export class Recetas { 
 
-  /**
-   * Esta variable almacenará la "referencia" a la señal de recetas
-   * que nos da el servicio.
-   * La nombramos con un '$' al final por convención, para indicar
-   * que es un stream de datos reactivo (Signal u Observable).
-   * Su valor real se asigna en el constructor.
-   */
-  listaRecetas$; // El tipo (Signal<RecetaModelo[]>) se infiere automáticamente
+  // Señal con la lista de recetas filtradas (viene del servicio)
+  listaRecetas$; 
 
-  /**
-   * Inyectamos el RecetaService (nuestro "almacén") en el constructor.
-   * Angular se encarga de crear y pasarnos la instancia única (singleton)
-   * del servicio.
-   */
+  // Estado para los modales
+  selectedReceta: RecetaModelo | null = null; // Modal de detalle
+  votingReceta: RecetaModelo | null = null;   // Modal de votación
+  tempRating: number = 0;                     // Puntuación temporal en el modal
+
   constructor(private recetaService: RecetaService) {
-    /**
-     * Inmediatamente al crear el componente, pedimos al servicio
-     * la lista de recetas (que en realidad es una señal 'computed').
-     * Guardamos esa señal en nuestra variable local 'listaRecetas$'.
-     * El HTML usará esta variable para pintarse.
-     */
     this.listaRecetas$ = this.recetaService.getRecetas();
   }
 
   /**
-   * Método "manejador" (handler) que escucha el evento (onDelete)
-   * emitido por el componente hijo <app-receta>.
-   * Se conecta en el HTML con: (onDelete)="handleDelete(receta)"
-   * * [cite: source 375]
+   * Maneja el evento de borrado emitido por una tarjeta.
+   * Solicita al servicio eliminar la receta y cierra modales si es necesario.
    */
   public handleDelete(recetaABorrar: RecetaModelo) {
-    // Este componente no borra nada. Simplemente recibe la orden
-    // y se la pasa al "cerebro" (el servicio), que es el
-    // único que tiene permiso para modificar la lista de datos.
     this.recetaService.deleteReceta(recetaABorrar);
+    
+    // Si la receta borrada estaba abierta en algún modal, lo cerramos
+    if (this.selectedReceta?.titulo === recetaABorrar.titulo) {
+      this.closeDetail();
+    }
+    if (this.votingReceta?.titulo === recetaABorrar.titulo) {
+      this.closeVoteModal();
+    }
+  }
+
+  // --- GESTIÓN DEL MODAL DE DETALLE ---
+
+  public openDetail(receta: RecetaModelo) {
+    this.selectedReceta = receta;
+  }
+
+  public closeDetail() {
+    this.selectedReceta = null;
+  }
+
+  public getMedia(receta: RecetaModelo): number {
+    if (!receta.votos || receta.votos === 0) return 0;
+    return (receta.puntuacion || 0) / receta.votos;
+  }
+
+  // --- GESTIÓN DEL MODAL DE VOTACIÓN ---
+
+  public openVoteModal(receta: RecetaModelo) {
+    this.votingReceta = receta;
+    this.tempRating = 0;
+  }
+
+  public closeVoteModal() {
+    this.votingReceta = null;
+    this.tempRating = 0;
+  }
+
+  public setTempRating(rating: number) {
+    this.tempRating = rating;
+  }
+
+  /**
+   * Envía el voto al servicio y cierra el modal.
+   */
+  public submitVote() {
+    if (this.votingReceta && this.tempRating > 0) {
+      this.recetaService.votarReceta(this.votingReceta, this.tempRating);
+      this.closeVoteModal();
+    }
+  }
+
+  /**
+   * Fallback para imágenes rotas en el modal de detalle.
+   */
+  public handleImageError(event: any) {
+    event.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png';
   }
 }

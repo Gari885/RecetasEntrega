@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "titulo": "Tortilla de Patatas",
+    "imagen": "https://imgs.search.brave.com/xE0Il87ltADaZxeuZ3KBPQCxTwfgi-73dtd2U83ZPvU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdDIu/ZGVwb3NpdHBob3Rv/cy5jb20vMjA3MjQ5/NS83Mjc0L2kvNDUw/L2RlcG9zaXRwaG90/b3NfNzI3NDIxNzMt/c3RvY2stcGhvdG8t/c3BhbmlzaC1vbWVs/ZXR0ZS13aXRoLXBv/dGF0by1hbmQuanBn",
+    "ingredientes": [
+      "Huevos",
+      "Patatas",
+      "Cebolla",
+      "Aceite",
+      "Sal"
+    ],
+    "votos": 0,
+    "puntuacion": 0,
+    "personas": 4
+  },
+  {
+    "id": "2",
+    "titulo": "Paella Valenciana",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Paella_de_marisco_01.jpg/800px-Paella_de_marisco_01.jpg",
+    "ingredientes": [
+      "Arroz",
+      "Pollo",
+      "Conejo",
+      "Judías verdes",
+      "Garrofó",
+      "Azafrán"
+    ],
+    "votos": 1,
+    "puntuacion": 4,
+    "personas": 6
+  },
+  {
+    "id": "3",
+    "titulo": "Gazpacho Andaluz",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Gazpacho.jpg/800px-Gazpacho.jpg",
+    "ingredientes": [
+      "Tomate",
+      "Pimiento",
+      "Pepino",
+      "Ajo",
+      "Pan",
+      "Aceite",
+      "Vinagre"
+    ],
+    "votos": 0,
+    "puntuacion": 0,
+    "personas": 2
+  }
+]

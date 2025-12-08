@@ -7,6 +7,8 @@
       <app-receta 
         [receta]="receta" 
         (onDelete)="handleDelete(receta)"
+        (onVoteClick)="openVoteModal(receta)"
+        (onDetail)="openDetail(receta)"
         class="h-100">
       </app-receta>
       
@@ -17,3 +19,79 @@
   }
 
 </div>
+
+<!-- MODAL DE DETALLE -->
+@if (selectedReceta) {
+  <div class="modal-backdrop fade show"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ selectedReceta.titulo }}</h5>
+          <button type="button" class="btn-close" (click)="closeDetail()"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img 
+            [src]="selectedReceta.imagen" 
+            class="img-fluid mb-3 rounded" 
+            [alt]="selectedReceta.titulo" 
+            style="max-height: 200px;"
+            (error)="handleImageError($event)"
+          >
+          
+          <div class="mb-3">
+            <app-rating 
+              [rating]="getMedia(selectedReceta)" 
+              [readonly]="true"
+            ></app-rating>
+            <p class="text-muted mt-1">{{ selectedReceta.votos || 0 }} Votos</p>
+          </div>
+
+          <h6 class="text-start">Ingredientes:</h6>
+          <ul class="list-group list-group-flush text-start">
+            @for (ingrediente of selectedReceta.ingredientes; track $index) {
+              <li class="list-group-item">{{ ingrediente }}</li>
+            }
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDetail()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- MODAL DE VOTACIÓN -->
+@if (votingReceta) {
+  <div class="modal-backdrop fade show" style="z-index: 1055;"></div>
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" style="z-index: 1060;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4">
+          <h4 class="mb-4">{{ votingReceta.titulo }}</h4>
+          
+          <div class="mb-4">
+            <app-rating 
+              [rating]="tempRating" 
+              (onRate)="setTempRating($event)"
+              style="font-size: 2rem;"
+            ></app-rating>
+          </div>
+
+          <button 
+            type="button" 
+            class="btn btn-outline-dark px-5 py-2" 
+            style="border-width: 2px; font-weight: bold;"
+            (click)="submitVote()"
+            [disabled]="tempRating === 0"
+          >
+            RATE
+          </button>
+          
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3" (click)="closeVoteModal()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
