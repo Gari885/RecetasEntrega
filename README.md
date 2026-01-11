@@ -1,6 +1,6 @@
-# Proyecto Recetas - Angular + Atomic Design
+# Proyecto Recetas - Angular + Symfony
 
-Este proyecto es una aplicación de gestión de recetas desarrollada en **Angular** siguiendo la metodología de **Atomic Design**. Permite visualizar, añadir, filtrar, votar y eliminar recetas, persistiendo los datos en un **Mock API** local.
+Este proyecto es una aplicación de gestión de recetas desarrollada en **Angular** siguiendo la metodología de **Atomic Design**. Permite visualizar, añadir, filtrar, votar y eliminar recetas, persistiendo los datos en un **Backend Symfony (PHP + MySQL)**.
 
 ## Arquitectura del Proyecto
 
@@ -43,19 +43,28 @@ Esto asegura que la interfaz nunca se rompa visualmente, incluso si el usuario i
 
 ## Cómo Ejecutar el Proyecto
 
-Este proyecto requiere dos terminales funcionando simultáneamente: una para el servidor de datos (Mock API) y otra para la aplicación Angular.
+Este proyecto requiere dos terminales funcionando simultáneamente: una para el servidor backend (Symfony) y otra para la aplicación Angular.
 
-### Paso 1: Iniciar el Mock Server (Backend)
-El servidor simula una API REST real y guarda los datos en `mock-server/db.json`.
+### Prerrequisitos
+*   **PHP 8.2+** y **Composer** instalados.
+*   **MySQL** (o MariaDB) corriendo.
+*   Una base de datos llamada `recetas_db`.
 
-```bash
-cd mock-server
-npm install  # Solo la primera vez
-npm start
-```
-*El servidor correrá en: `http://localhost:3000`*
+### Paso 1: Configurar el Backend (Symfony)
+1.  Navega a la carpeta `backend`.
+2.  Asegúrate de que las tablas de la base de datos están creadas (usa el script SQL proporcionado en `troubleshooting.md` si no tienes `bin/console`).
+3.  Arranca el servidor de desarrollo:
+    ```bash
+    php -S localhost:8000 -t public
+    ```
+    *El servidor correrá en: `http://localhost:8000`*
+
+4.  **(Opcional)** Carga datos iniciales (Tipos de receta, nutrientes):
+    Visita `http://localhost:8000/api/test/seed` en tu navegador.
 
 ### Paso 2: Iniciar la Aplicación Angular (Frontend)
+
+En la carpeta raíz del proyecto (donde está `angular.json`):
 
 ```bash
 ng serve
@@ -66,7 +75,8 @@ ng serve
 
 ## Tecnologías Usadas
 *   **Angular 18+** (Standalone Components, Signals)
+*   **Symfony 7** (Backend API, Doctrine ORM)
+*   **MySQL** (Base de Datos Relacional)
 *   **Bootstrap 5** (Estilos y Layout)
 *   **Bootstrap Icons** (Iconografía)
-*   **Express.js** (Mock Backend)
 *   **Reactive Forms** (Validación de formularios)

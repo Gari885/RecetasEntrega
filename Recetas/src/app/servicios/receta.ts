@@ -15,7 +15,7 @@ import { firstValueFrom } from 'rxjs';
 export class RecetaService {
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/recetas';
+  private apiUrl = 'http://localhost:8000/api/recetas';
 
   // --- SEÑALES DE ESTADO ---
   
